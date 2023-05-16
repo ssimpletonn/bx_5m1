@@ -232,6 +232,8 @@ namespace C_Sharp_Demo
 
         }
 
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (m_bSendBusy == false)
@@ -264,7 +266,9 @@ namespace C_Sharp_Demo
                 string text = textBox1.Text;
                 sw.WriteLine(text);
                 sw.Close();
-                result = AddScreenProgramAreaBmpTextFile(SCREEN_NO, 0, 0, fileName, 1, "Tahoma", 12, 0, 65535, 1, 3, 0);
+                int stat = checkBox2.Checked ? 1 : 4;
+                result = AddScreenProgramAreaBmpTextFile(SCREEN_NO, 0, 0, fileName, 1, "Tahoma", Convert.ToInt32(numericUpDown1.Value), 
+                    Convert.ToInt32(checkBox1.Checked), 65535, stat, 3, 0);
                 GetErrorMessage("AddScreenProgramAreaBmpTextFile", result);
                 int nResult;
                 nResult = SendScreenInfo(SCREEN_NO, SEND_MODE_NET, SEND_CMD_SENDALLPROGRAM, 0);
@@ -289,6 +293,41 @@ namespace C_Sharp_Demo
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rchMessage_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
 
         }
