@@ -54,11 +54,16 @@ namespace C_Sharp_Demo
 
         [DllImport("BX_IV.dll")]
         public static extern int AddScreenProgramAreaBmpTextFile(int nScreenNo, int nProgramOrd, int nAreaOrd,
-        string pFileName, int nShowSingle, string pFontName, int nFontSize, int nBold, int nFontColor,
+            string pFileName, int nShowSingle, string pFontName, int nFontSize, int nBold, int nFontColor,
             int nStunt, int nRunSpeed, int nShowTime);
 
         [DllImport("BX_IV.dll")]
         public static extern int DeleteScreenProgramAreaBmpTextFile(int nScreenNo, int nProgramOrd, int nAreaOrd, int nFileOrd);
+
+        [DllImport("BX_IV.dll")]
+        public static extern int SetScreenAdjustLight(int nScreenNo, int nAdjustType,
+            int nHandleLight, int nHour1, int nMinute1, int nLight1, int nHour2, int nMinute2,
+            int nLight2, int nHour3, int nMinute3, int nLight3, int nHour4, int nMinute4, int nLight4);
 
         private const int RETURN_ERROR_AERETYPE = 0xF7;
         private const int RETURN_ERROR_RA_SCREENNO = 0xF8;
@@ -262,6 +267,10 @@ namespace C_Sharp_Demo
                     result = AddScreenProgram(SCREEN_NO, 0, 0, 65535, 12, 3, 2011, 11, 26, 1, 1, 1, 1, 1, 1, 1, 0, 0, 23, 59);
                     GetErrorMessage("AddScreenProgram", result);
                 }
+                result = SetScreenAdjustLight(SCREEN_NO, 0, Convert.ToInt32(numericUpDown3.Value), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0);
+                GetErrorMessage("SetScreenAdjustLight", result);
+                result = SendScreenInfo(SCREEN_NO, SEND_MODE_NET, SEND_CMD_ADJUSTLIGHT, 0);
+                GetErrorMessage("SendScreenInfo", result);
                 result = AddScreenProgramBmpTextArea(SCREEN_NO, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
                 GetErrorMessage("AddScreenProgramBmpTextArea", result);
                 //string fileName;
@@ -278,6 +287,7 @@ namespace C_Sharp_Demo
                 int nResult;
                 nResult = SendScreenInfo(SCREEN_NO, SEND_MODE_NET, SEND_CMD_SENDALLPROGRAM, 0);
                 GetErrorMessage("SendScreenInfo", nResult);
+                textBox2.Text = text;
                 m_bSendBusy = false;
             }
         }
@@ -303,6 +313,10 @@ namespace C_Sharp_Demo
                     result = AddScreenProgram(SCREEN_NO, 0, 0, 65535, 12, 3, 2011, 11, 26, 1, 1, 1, 1, 1, 1, 1, 0, 0, 23, 59);
                     GetErrorMessage("AddScreenProgram", result);
                 }
+                result = SetScreenAdjustLight(SCREEN_NO, 0, Convert.ToInt32(numericUpDown3.Value), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                GetErrorMessage("SetScreenAdjustLight", result);
+                result = SendScreenInfo(SCREEN_NO, SEND_MODE_NET, SEND_CMD_ADJUSTLIGHT, 0);
+                GetErrorMessage("SendScreenInfo", result);
                 result = AddScreenProgramBmpTextArea(SCREEN_NO, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
                 GetErrorMessage("AddScreenProgramBmpTextArea", result);
                 string text = "";
@@ -336,8 +350,8 @@ namespace C_Sharp_Demo
                 int nResult;
                 nResult = SendScreenInfo(SCREEN_NO, SEND_MODE_NET, SEND_CMD_SENDALLPROGRAM, 0);
                 GetErrorMessage("SendScreenInfo", nResult);
+                textBox2.Text = text;
                 m_bSendBusy = false;
-                timer.Interval = Convert.ToInt32(numericUpDown2.Value);
             }
         }
         private void TimerEvent(Object myObject, EventArgs myEventArgs)
@@ -367,10 +381,6 @@ namespace C_Sharp_Demo
         }
 
         private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label2_Click(object sender, EventArgs e)
         {
 
         }
@@ -411,6 +421,16 @@ namespace C_Sharp_Demo
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
 
         }
