@@ -8,11 +8,16 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace C_Sharp_Demo
 {
     public partial class Form1 : Form
     {
+        Timer timer = new Timer();
+        int counter = 0;
+        int time = 0;
+
         Dictionary<string, string> choiceToFile = new Dictionary<string, string>(){
             {"1", "1.txt"},
             {"2", "2.txt"}
@@ -228,15 +233,16 @@ namespace C_Sharp_Demo
                 case 0xFE:
                     rchMessage.Text += szResult + "ошибка связи\r\n";
                     break;
+                case 123123:
+                    rchMessage.Text += szResult + "idk\r\n";
+                    break;
             }
 
         }
 
-
-
         private void button1_Click(object sender, EventArgs e)
         {
-            if (m_bSendBusy == false)
+            if (m_bSendBusy == false && !timer.Enabled)
             {
                 m_bSendBusy = true;
                 int result;
@@ -262,7 +268,6 @@ namespace C_Sharp_Demo
                 //choiceToFile.TryGetValue(comboBox1.Text, out fileName);
                 string fileName = "edit.txt";
                 StreamWriter sw = new StreamWriter(fileName);
-
                 string text = textBox1.Text;
                 sw.WriteLine(text);
                 sw.Close();
@@ -276,6 +281,71 @@ namespace C_Sharp_Demo
                 m_bSendBusy = false;
             }
         }
+        private void SetTextFromTxt()
+        {
+            if (m_bSendBusy == false)
+            {
+                m_bSendBusy = true;
+                int result;
+                if (active)
+                {
+                    result = DeleteScreenProgram(SCREEN_NO, 0);
+                    GetErrorMessage("DeleteScreenProgram", result);
+                    GetErrorMessage("AddScreen", result);
+                    result = AddScreenProgram(SCREEN_NO, 0, 0, 65535, 12, 3, 2011, 11, 26, 1, 1, 1, 1, 1, 1, 1, 0, 0, 23, 59);
+                }
+                else
+                {
+                    result = AddScreen(CONTROLLER_TYPE_5M1, SCREEN_NO, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TYPE, 1,
+                    SCREEN_DATADA, SCREEN_DATAOE, SCREEN_ROWORDER, SCREEN_FREQPAR, SCREEN_COMM, SCREEN_BAUD, SCREEN_SOCKETIP, SCREEN_SOCKETPORT,
+                    SCREEN_WIFIIP, SCREEN_WIFIPORT, "C:\\ScreenStatus.ini");
+                    active = true;
+                    result = AddScreenProgram(SCREEN_NO, 0, 0, 65535, 12, 3, 2011, 11, 26, 1, 1, 1, 1, 1, 1, 1, 0, 0, 23, 59);
+                    GetErrorMessage("AddScreenProgram", result);
+                }
+                result = AddScreenProgramBmpTextArea(SCREEN_NO, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                GetErrorMessage("AddScreenProgramBmpTextArea", result);
+                string text = "";
+                string[] line = { };
+                try
+                {
+                    line = File.ReadAllLines("text.txt");
+                }
+                catch (Exception e)
+                {
+                    GetErrorMessage(e.Message, 123123);
+                }
+                if (line.Length == 0)
+                {
+                    return;
+                }
+                if (counter >= line.Length)
+                {
+                    counter = 0;
+                }
+                text = line[counter];
+                counter++;
+                string fileName = "edit.txt";
+                StreamWriter sw = new StreamWriter(fileName);
+                sw.WriteLine(text);
+                sw.Close();
+                int stat = checkBox2.Checked ? 1 : 4;
+                result = AddScreenProgramAreaBmpTextFile(SCREEN_NO, 0, 0, fileName, 1, "Tahoma", Convert.ToInt32(numericUpDown1.Value),
+                    Convert.ToInt32(checkBox1.Checked), 65535, stat, 3, 0);
+                GetErrorMessage("AddScreenProgramAreaBmpTextFile", result);
+                int nResult;
+                nResult = SendScreenInfo(SCREEN_NO, SEND_MODE_NET, SEND_CMD_SENDALLPROGRAM, 0);
+                GetErrorMessage("SendScreenInfo", nResult);
+                m_bSendBusy = false;
+                timer.Interval = Convert.ToInt32(numericUpDown2.Value);
+            }
+        }
+        private void TimerEvent(Object myObject, EventArgs myEventArgs)
+        {
+            timer.Stop();
+            SetTextFromTxt();
+            timer.Enabled = true;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -283,13 +353,7 @@ namespace C_Sharp_Demo
 
         private void button13_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            System.Windows.Forms.Application.Exit();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -306,13 +370,7 @@ namespace C_Sharp_Demo
         {
 
         }
-
         private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
         {
 
         }
@@ -328,6 +386,31 @@ namespace C_Sharp_Demo
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (timer.Enabled)
+            {
+                timer.Stop();
+                timer.Tick -= TimerEvent;
+                button2.Text = "Запустить таймер";
+            }
+            else
+            {
+                counter = 0;
+                SetTextFromTxt();
+                time = Convert.ToInt32(numericUpDown2.Value);
+                timer.Tick += TimerEvent;
+                timer.Interval = time;
+                button2.Text = "Остановить таймер";
+                timer.Start();
+            }
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
 
         }
