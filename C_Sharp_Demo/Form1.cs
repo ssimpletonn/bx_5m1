@@ -467,12 +467,12 @@ namespace C_Sharp_Demo
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
                 portArduino.Close();
-                portArduino.Write("0");
+                
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
                 portArduino.Open();
-                portArduino.Write("1");
+                portArduino.Write("0");
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
             {
