@@ -456,7 +456,9 @@ namespace C_Sharp_Demo
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            string inputText = textBox3.Text;
+            byte[] helloMessage = System.Text.Encoding.UTF8.GetBytes(inputText);
+            portArduino.Write(helloMessage, 0, helloMessage.Length);
         }
         private void tabPage3_Click(object sender, EventArgs e)
         {
@@ -466,14 +468,12 @@ namespace C_Sharp_Demo
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
-                portArduino.Write("1");
                 portArduino.Close();
                 
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
                 portArduino.Open();
-                portArduino.Write("0");
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
             {
@@ -487,6 +487,11 @@ namespace C_Sharp_Demo
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
         }
