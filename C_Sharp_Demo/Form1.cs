@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
+using System.IO.Ports;
 
 namespace C_Sharp_Demo
 {
@@ -124,9 +125,13 @@ namespace C_Sharp_Demo
         private const string SCREEN_WIFIIP = "192.168.0.100";
         private const int SCREEN_WIFIPORT = 5005;
         private bool m_bSendBusy = false;
+
+
+        private SerialPort portArduino = new SerialPort("COM4", 57600);
         public Form1()
         {
             InitializeComponent();
+            tabControl1.SelectedIndexChanged += tabIndexChanged;
         }
 
         public void GetErrorMessage(string szfunctionName, int nResult)
@@ -431,6 +436,56 @@ namespace C_Sharp_Demo
         }
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void tabIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                portArduino.Close();
+                portArduino.Write("0");
+            }
+            else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
+            {
+                portArduino.Open();
+                portArduino.Write("1");
+            }
+            else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
+            {
+
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
         {
 
         }
