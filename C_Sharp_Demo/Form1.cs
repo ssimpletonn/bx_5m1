@@ -127,7 +127,7 @@ namespace C_Sharp_Demo
         private bool m_bSendBusy = false;
 
 
-        private SerialPort portArduino = new SerialPort("COM1", 57600);
+        private SerialPort portArduino = new SerialPort("COM4", 9600);
         public Form1()
         {
             InitializeComponent();
@@ -466,6 +466,7 @@ namespace C_Sharp_Demo
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
+                portArduino.Write("1");
                 portArduino.Close();
                 
             }
