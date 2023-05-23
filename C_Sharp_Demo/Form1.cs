@@ -127,7 +127,7 @@ namespace C_Sharp_Demo
         private bool m_bSendBusy = false;
 
 
-        private SerialPort portArduino = new SerialPort("COM4", 57600);
+        private SerialPort portArduino = new SerialPort("COM1", 57600);
         public Form1()
         {
             InitializeComponent();
