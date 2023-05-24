@@ -475,6 +475,11 @@ namespace C_Sharp_Demo
                 timer.Start();
             }
         }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
