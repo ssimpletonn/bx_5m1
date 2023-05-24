@@ -350,6 +350,7 @@
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(217, 20);
             this.textBox4.TabIndex = 3;
+            this.textBox4.Text = "None";
             // 
             // button4
             // 
