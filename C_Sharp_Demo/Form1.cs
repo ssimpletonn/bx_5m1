@@ -437,8 +437,8 @@ namespace C_Sharp_Demo
             byte[] brightness = System.Text.Encoding.UTF8.GetBytes(numericUpDown4.Value.ToString());
             byte[] staticDisp = System.Text.Encoding.UTF8.GetBytes(checkBox4.Checked ? "1" : "0");
             portArduino.Write(brightness, 0, brightness.Length);
-            portArduino.Write(staticDisp, 0, staticDisp.Length);
             portArduino.Write(message, 0, message.Length);
+            portArduino.Write(staticDisp, 0, staticDisp.Length);
         }
 
         private void tabIndexChanged(object sender, EventArgs e)
