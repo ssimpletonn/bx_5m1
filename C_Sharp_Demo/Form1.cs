@@ -384,6 +384,7 @@ namespace C_Sharp_Demo
             counter++;
             byte[] message = System.Text.Encoding.UTF8.GetBytes(text);
             portArduino.Write(message, 0, message.Length);
+            textBox4.Text = text;
         }
 
         private void OnbonTimerEvent(Object myObject, EventArgs myEventArgs)
@@ -434,6 +435,9 @@ namespace C_Sharp_Demo
             string inputText = textBox3.Text;
             byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText);
             portArduino.Write(message, 0, message.Length);
+            portArduino.Write(numericUpDown4.Value.ToString());
+            portArduino.Write(checkBox4.Checked.ToString());
+
         }
 
         private void tabIndexChanged(object sender, EventArgs e)
@@ -477,11 +481,6 @@ namespace C_Sharp_Demo
                 button4.Text = "Остановить таймер";
                 timer.Start();
             }
-        }
-
-        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
