@@ -439,6 +439,7 @@ namespace C_Sharp_Demo
             portArduino.Write(brightness, 0, brightness.Length);
             portArduino.Write(message, 0, message.Length);
             portArduino.Write(staticDisp, 0, staticDisp.Length);
+            textBox4.Text = inputText;
         }
 
         private void tabIndexChanged(object sender, EventArgs e)
