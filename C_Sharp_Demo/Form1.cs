@@ -433,8 +433,8 @@ namespace C_Sharp_Demo
         private void button3_Click(object sender, EventArgs e)
         {
             string inputText = textBox3.Text;
-            byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText);
-            byte[] brightness = System.Text.Encoding.UTF8.GetBytes(numericUpDown5.Value.ToString() + '\n');
+            byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText + '\n');
+            byte[] brightness = System.Text.Encoding.UTF8.GetBytes(numericUpDown5.Value.ToString());
             byte[] staticDisp = System.Text.Encoding.UTF8.GetBytes(checkBox4.Checked ? "1" : "0");
             portArduino.Write(brightness, 0, brightness.Length);
             portArduino.Write(message, 0, message.Length);
