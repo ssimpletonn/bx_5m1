@@ -370,7 +370,7 @@ namespace C_Sharp_Demo
             }
             catch(Exception ex)
             {
-
+                MessageBox.Show("Something went wrong with text.txt");
             }
             if (line.Length == 0)
             {
@@ -381,9 +381,11 @@ namespace C_Sharp_Demo
                 counter = 0;
             }
             text = line[counter];
+            counter++;
             byte[] message = System.Text.Encoding.UTF8.GetBytes(text);
             portArduino.Write(message, 0, message.Length);
         }
+
         private void OnbonTimerEvent(Object myObject, EventArgs myEventArgs)
         {
             timer.Stop();
@@ -433,6 +435,7 @@ namespace C_Sharp_Demo
             byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText);
             portArduino.Write(message, 0, message.Length);
         }
+
         private void tabIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
