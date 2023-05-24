@@ -434,8 +434,8 @@ namespace C_Sharp_Demo
         {
             string inputText = textBox3.Text;
             byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText + '\n');
-            byte[] brightness = System.Text.Encoding.UTF8.GetBytes(numericUpDown5.Value.ToString());
-            byte[] staticDisp = System.Text.Encoding.UTF8.GetBytes(checkBox4.Checked ? "1" : "0");
+            byte[] brightness = System.Text.Encoding.UTF8.GetBytes(numericUpDown5.Value.ToString() + "\n");
+            byte[] staticDisp = System.Text.Encoding.UTF8.GetBytes(checkBox4.Checked ? "1" : "0" + "\n");
             portArduino.Write(brightness, 0, brightness.Length);
             portArduino.Write(message, 0, message.Length);
             portArduino.Write(staticDisp, 0, staticDisp.Length);
