@@ -434,7 +434,7 @@ namespace C_Sharp_Demo
         {
             string inputText = textBox3.Text;
             byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText);
-            byte[] brightness = System.Text.Encoding.UTF8.GetBytes(numericUpDown4.Value.ToString());
+            byte[] brightness = System.Text.Encoding.UTF8.GetBytes(numericUpDown5.Value.ToString());
             byte[] staticDisp = System.Text.Encoding.UTF8.GetBytes(checkBox4.Checked ? "1" : "0");
             portArduino.Write(brightness, 0, brightness.Length);
             portArduino.Write(message, 0, message.Length);
@@ -482,6 +482,11 @@ namespace C_Sharp_Demo
                 button4.Text = "Остановить таймер";
                 timer.Start();
             }
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
