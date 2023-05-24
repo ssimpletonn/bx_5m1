@@ -296,7 +296,7 @@ namespace C_Sharp_Demo
                 m_bSendBusy = false;
             }
         }
-        private void SetTextFromTxt()
+        private void SetOnbonTextFromTxt()
         {
             if (m_bSendBusy == false)
             {
@@ -359,10 +359,42 @@ namespace C_Sharp_Demo
                 m_bSendBusy = false;
             }
         }
-        private void TimerEvent(Object myObject, EventArgs myEventArgs)
+
+        private void SetArduinoTextFromTxt()
+        {
+            string text = "";
+            string[] line = { };
+            try
+            {
+                line = File.ReadAllLines("text.txt");
+            }
+            catch(Exception ex)
+            {
+
+            }
+            if (line.Length == 0)
+            {
+                return;
+            }
+            if (counter >= line.Length)
+            {
+                counter = 0;
+            }
+            text = line[counter];
+            byte[] message = System.Text.Encoding.UTF8.GetBytes(text);
+            portArduino.Write(message, 0, message.Length);
+        }
+        private void OnbonTimerEvent(Object myObject, EventArgs myEventArgs)
         {
             timer.Stop();
-            SetTextFromTxt();
+            SetOnbonTextFromTxt();
+            timer.Enabled = true;
+        }
+
+        private void ArduinoTimerEvent(Object myObject, EventArgs myEventArgs)
+        {
+            timer.Stop();
+            SetArduinoTextFromTxt();
             timer.Enabled = true;
         }
 
@@ -375,94 +407,31 @@ namespace C_Sharp_Demo
             System.Windows.Forms.Application.Exit();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rchMessage_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (timer.Enabled)
             {
                 timer.Stop();
-                timer.Tick -= TimerEvent;
+                timer.Tick -= OnbonTimerEvent;
                 button2.Text = "Запустить таймер";
             }
             else
             {
                 counter = 0;
-                SetTextFromTxt();
+                SetOnbonTextFromTxt();
                 time = Convert.ToInt32(numericUpDown2.Value);
-                timer.Tick += TimerEvent;
+                timer.Tick += OnbonTimerEvent;
                 timer.Interval = time;
                 button2.Text = "Остановить таймер";
                 timer.Start();
             }
         }
 
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
             string inputText = textBox3.Text;
-            byte[] helloMessage = System.Text.Encoding.UTF8.GetBytes(inputText);
-            portArduino.Write(helloMessage, 0, helloMessage.Length);
-        }
-        private void tabPage3_Click(object sender, EventArgs e)
-        {
-
+            byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText);
+            portArduino.Write(message, 0, message.Length);
         }
         private void tabIndexChanged(object sender, EventArgs e)
         {
@@ -473,27 +442,38 @@ namespace C_Sharp_Demo
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
-                portArduino.Open();
+                try {
+                    portArduino.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("No device on COM4");
+                }
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
             {
-
+                portArduino.Close();
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
+            if (timer.Enabled)
+            {
+                timer.Stop();
+                timer.Tick -= ArduinoTimerEvent;
+                button4.Text = "Запустить таймер";
+            }
+            else
+            {
+                counter = 0;
+                SetArduinoTextFromTxt();
+                time = Convert.ToInt32(numericUpDown4.Value);
+                timer.Tick += ArduinoTimerEvent;
+                timer.Interval = time;
+                button4.Text = "Остановить таймер";
+                timer.Start();
+            }
         }
     }
 }

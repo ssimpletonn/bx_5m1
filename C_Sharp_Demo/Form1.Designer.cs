@@ -60,7 +60,6 @@
             this.rchMessage.Size = new System.Drawing.Size(521, 86);
             this.rchMessage.TabIndex = 13;
             this.rchMessage.Text = "";
-            this.rchMessage.TextChanged += new System.EventHandler(this.rchMessage_TextChanged);
             // 
             // button1
             // 
@@ -88,7 +87,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(249, 20);
             this.textBox1.TabIndex = 27;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // numericUpDown1
             // 
@@ -111,7 +109,6 @@
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label1
             // 
@@ -121,7 +118,6 @@
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 30;
             this.label1.Text = "Размер шрифта";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // checkBox1
             // 
@@ -132,7 +128,6 @@
             this.checkBox1.TabIndex = 35;
             this.checkBox1.Text = "Жирный";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -143,7 +138,6 @@
             this.checkBox2.TabIndex = 36;
             this.checkBox2.Text = "Статично";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // button2
             // 
@@ -176,7 +170,6 @@
             0,
             0,
             0});
-            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // textBox2
             // 
@@ -185,7 +178,6 @@
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(232, 20);
             this.textBox2.TabIndex = 39;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label2
             // 
@@ -195,7 +187,6 @@
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 40;
             this.label2.Text = "Сейчас на экране";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -227,7 +218,6 @@
             0,
             0,
             0});
-            this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // tabControl1
             // 
@@ -283,7 +273,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Arduino";
             this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // checkBox4
             // 
@@ -304,7 +293,6 @@
             this.checkBox3.TabIndex = 8;
             this.checkBox3.Text = "Жирный";
             this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // numericUpDown6
             // 
@@ -335,7 +323,6 @@
             this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Сейчас на экране";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // textBox4
             // 
@@ -361,7 +348,6 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(178, 20);
             this.textBox3.TabIndex = 1;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // button3
             // 
