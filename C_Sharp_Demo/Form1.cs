@@ -434,9 +434,9 @@ namespace C_Sharp_Demo
         {
             string inputText = textBox3.Text;
             byte[] message = System.Text.Encoding.UTF8.GetBytes(inputText);
+            portArduino.Write(numericUpDown4.Value.ToString().ToCharArray(), 0, numericUpDown4.Value.ToString().Length);
+            portArduino.Write((checkBox4.Checked ? "1" : "0").ToCharArray(), 0, 1);
             portArduino.Write(message, 0, message.Length);
-            portArduino.Write(numericUpDown4.Value.ToString());
-            portArduino.Write(checkBox4.Checked ? "1" : "0");
         }
 
         private void tabIndexChanged(object sender, EventArgs e)
